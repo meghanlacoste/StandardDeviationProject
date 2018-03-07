@@ -7,6 +7,7 @@ package com.company;
 //
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import static com.company.ProjConstants.*;
@@ -20,6 +21,7 @@ public class Main {
         double theAverage = 0;
         double theVariance = 0;
         double theStDeviation = 0;
+        int numberItems = 0;
         int theNumberObservations = 0;
         int counter = 0;
         String userFileName;
@@ -27,7 +29,7 @@ public class Main {
 
         StDeviation calcSDev =  new StDeviation();
 
-        while (proceed= true) {
+        while (proceed == true) {
             try {
 
                 System.out.println("");
@@ -76,66 +78,75 @@ public class Main {
 
             theStDeviation = calcSDev.calcStandardDeviation();
 
-            //theNumberObservationsbservations = calcSDev.getNumberOfDataItems();
+            numberItems = calcSDev.getNumberOfDataItems();
 
 
-            //  the range of values that contain 68% of the observations, 95% of the observations, and 99% of the observations.
-            double theRange68 = (theAverage + theStDeviation) - (theAverage - theStDeviation);
-            double theRange95 = (theAverage + 2 * theStDeviation) - (theAverage - 2 * theStDeviation);
-            double theRange99 = (theAverage + 3 * theStDeviation) - (theAverage - 3 * theStDeviation);
+            // show the range of values that contain 68% of the observations, 95% of the observations, and 99% of the observations.
+
+           // double theRange68 = (theAverage + theStDeviation) - (theAverage - theStDeviation);
+           // double theRange95 = (theAverage + 2 * theStDeviation) - (theAverage - 2 * theStDeviation);
+            //double theRange99 = (theAverage + 3 * theStDeviation) - (theAverage - 3 * theStDeviation);
+
+            DecimalFormat numberFormat = new DecimalFormat("#.0000");
 
             // if counter> MaxData, print "The file chosen is too large; file not completely read into array"
             // print within 4 decimal point
             System.out.println("------------------------------------------------");
             System.out.printf("For the values found in file:");
             System.out.println(" ");
-            System.out.println();
-          //  System.out.printf("\tNumber of Items........ %20.0f\n",theNumberObservations);
-            System.out.printf("\t Mean....................%10.0f\n",theAverage);
             System.out.println(" ");
-            System.out.printf("\t Variance................%10.0f\n",theVariance);
+            System.out.printf("\t Number of Items..........", numberItems);
             System.out.println(" ");
-            System.out.printf("\t Standard Deviation .....%10.0f\n",theStDeviation);
             System.out.println(" ");
-            System.out.println("==================================================================\n");
-            System.out.printf("\tLower\t\t Mean\t\tUpper");
-            System.out.println();
-            //System.out.println(theAverage - theStDeviation);
-            System.out.printf("68 percent of the data is:  ",(theAverage + theStDeviation),"<",theAverage,"<",(theAverage + theStDeviation));
-            System.out.printf("      The uppper bound: " + (theAverage + theStDeviation));
-            System.out.println();
-            System.out.println("The Range of the values within 68% of the observations is: " + theRange68);
-            System.out.println("The Range of the values within 95% of the observations is: " + theRange95);
-            System.out.println("The Range of the values within 99% of the observations is: " + theRange99);
-            System.out.println();
-            System.out.println("==================================================================\n");
-            System.out.println();
-            //System.out.printf("\tNumber of Items........ %20.0f\n", theAverage);
-            //System.out.printf("\tSum of all Items:...... %20.0f\n", total);
-            // System.out.printf("\tAverage:............... %20.4f\n\n", average);
+            System.out.printf("\t Mean....................%10.4f", theAverage);
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.printf("\t Variance................%10.4f\n", theVariance);
+            System.out.println(" ");
+            System.out.printf("\t Standard Deviation .....%10.4f\n", theStDeviation);
+            System.out.println(" ");
 
+            //"First Name: %s\nLast Name: %s",firstname, lastname);
+            System.out.println("==================================================================\n");
+            System.out.printf("\t\t\t\t\t\t\t\tLower\t\t Mean\t\tUpper");
+            System.out.println();
+
+            System.out.printf("68 percent of the data is:\t");
+            System.out.printf("%10.4f\n", (theAverage - theStDeviation));
+            System.out.printf("%10.4f\n", theAverage);
+            System.out.printf("%10.4f\n", (theAverage + theStDeviation));
+
+            System.out.println();
+            System.out.printf("95 percent of the data is:\t");
+            System.out.printf("%10.4f\n", (theAverage - 2 * theStDeviation));
+            System.out.printf("%10.4f\n", theAverage);
+            System.out.printf("%10.4f\n", (theAverage + 2 * theStDeviation));
+
+            System.out.println(" ");
+            System.out.printf("99 percent of the data is:\t");
+            System.out.printf("%10.4f\n", (theAverage - 3 * theStDeviation));
+            System.out.printf("%10.4f\n", theAverage);
+            System.out.printf("%10.4f\n", (theAverage + 3 * theStDeviation));
+            System.out.println();
+
+            System.out.println();
+            System.out.println("==================================================================\n");
+            System.out.println();
+
+
+            //ask the user if they would like to continue, if they press N or n then the boolean proceed= false and it will break out of the main while loop
             System.out.println("");
             System.out.println("Would you like to continue? Press 'n' or 'N' if you would like to exit\n");
-
 
             Scanner scanSystemIn = new Scanner(System.in);
             userInput = scanSystemIn.next();
 
-            while (!(scanSystemIn.hasNext("N") || scanSystemIn.hasNext("n"))) {
-                proceed = false;
-                break;
+                    while (!(scanSystemIn.hasNext("N") || scanSystemIn.hasNext("n"))) {
+                       proceed = false;
+                    }
 
-            }//end while
+        }// end while proceed=true
 
-
-            //  if(userInput = String) {
-            //  }
-            //  else
-            //  {
-
-               //fileDone = true;
-
-        }//while proceed= true
             System.out.println("process finished");
             System.out.println("------------------------------------------------");
 
